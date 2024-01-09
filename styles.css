@@ -4,9 +4,7 @@
   
   .board {
     display: flex;
-    width: 500px;
-    height: 500px;
-    border: 2px solid black;
+    flex-wrap: wrap;
     margin: 35px;
 
   }
@@ -18,10 +16,13 @@
     align-items: center;
   }
   .numberSquares {
-    height: 50px;
+    height: 30px;
   }
-  
 
-  .div {
-    border: 2px solid black;
+  h1 {
+    display: flex;
+    justify-content: center;
+  }
+  .cell{
+    border: 1px solid black;
   }

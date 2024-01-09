@@ -1,56 +1,43 @@
-const board = document.querySelector('.board');
-// const button = document.getElementById('popup');
-// console.log(grid);
+let board = document.querySelector('.board');
+let squaresPerSide = 16;
+let boardSize = 960;
+let button = document.querySelector('.numberOfSquares');
+const numOfSquares = squaresPerSide * squaresPerSide;
 
-// promptMessage = (tryAgain) => {
-//     let gridSize;
-//     let gridNumber;
-
-//     if (tryAgain === "big")
-//     {
-//         gridNumber = prompt('Value too big. Select a number up to 100.');
-//         gridSize = parseInt(gridNumber);
-//     }
-//     else if (tryAgain === "nan") {
-//         gridNumber = prompt('Value not a number. Enter a number.');
-//         gridSize = parseInt(gridNumber);
-//     }
-
-//     gridNumber = prompt('How many squares do you want to create a new grid with?');
-//     gridSize = parseInt(gridNumber);
+button.addEventListener('click', () => {
+    let gridNumber = prompt('How many squares do you want to create a new grid with?');
+    let gridSize = parseInt(gridNumber);
     
-//     return gridSize;
-// }
+    // We want to make sure the user's input is a number and is less than or equal to 100.
+    while ((isNaN(gridSize)) || (gridSize > 100)) {
+        gridNumber = prompt('Value is either not a number or is greater than 100. Enter a number less than or equal to 100.');
+        gridSize = parseInt(gridNumber);
+    };
+    let numOfSquares = gridSize * gridSize;
+    console.log(numOfSquares);
+    removeGrid();
+    createGrid(numOfSquares);
+})
 
-// button.addEventListener('click', () => {
-//     // Set max value to enter as 100.
-//     // let gridNumber = prompt('How many squares do you want to create a new grid with?');
-//     // console.log(gridNumber);
-//     // let gridSize = parseInt(gridNumber);
-//     const message = promptMessage();
-//     console.log(message);
-//     if (message > 100) {
-//         promptMessage(tryAgain="big");
-//     }
-//     else if (isNaN(message)) {
-//         promptMessage(tryAgain="nan");
-//     }
-// })
-
-createGrid = () => {
-
-    for (let i = 1; i< 257; i++) {
+createGrid = (numOfSquares) => {
+    for (let i = 0; i< numOfSquares; i++) {
         const div = document.createElement('div');
-    
-        div.style.backgroundColor = 'black';
-
-        // div.addEventListener('mouseover', () => {
-        //     console.log(event);
-        //     div.style.backgroundColor = 'red';
-        // })    
+        div.style.width = div.style.height = `${(boardSize/Math.sqrt(numOfSquares))}px`;
+        div.style.backgroundColor = 'white';
+        div.classList.add("cell");
         board.appendChild(div);
+
+        div.addEventListener('mouseover', () => {
+            div.style.backgroundColor = 'red';
+        })    
     };
 }
 
+// Removing the cells one by one until there are none left
+removeGrid = () => {
+    while (board.firstChild) {
+        board.removeChild(board.firstChild);
+    }
+}
 
-createGrid();
+createGrid(numOfSquares);
